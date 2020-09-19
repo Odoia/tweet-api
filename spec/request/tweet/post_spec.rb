@@ -19,5 +19,15 @@ describe '::Api::V1::TweetController', type: :request do
         expect(JSON.parse(response.body)['status']).to eq 201
       end
 
+      it 'must be return user id 1' do
+        expect(JSON.parse(response.body)['data']['user_id']).to eq 1
+      end
+
+      it 'must be return message first tweet' do
+        expect(JSON.parse(response.body)['data']['message']).to eq 'first tweet'
+      end
+
+
+
   end
 end
