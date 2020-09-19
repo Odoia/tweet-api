@@ -31,7 +31,7 @@ describe '::Api::V1::TweetController', type: :request do
     end
 
     context 'When use a invalid params' do
-      context 'When use a POST url' do
+      context 'When use a body without tweet' do
         let(:execute_actions) do
           post '/api/v1/tweet', params: {"userId": 1, "message": "first tweet"}, headers: { 'ACCEPT' => 'application/json' }
         end
