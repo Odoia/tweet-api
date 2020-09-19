@@ -9,10 +9,15 @@ module Api
 
       private
 
-      def create_tweet
-        ::Services::Tweet::Create.new(user_id: params['userId'], message: params['tweet']).call
+      def tweet_params
+        params.require(:tweet).permit(
+          :userId, :tweet
+        )
       end
 
+      def create_tweet
+        ::Services::Tweet::Create.new(user_id: tweet_params['userId'], message: tweet_params['tweet']).call
+      end
     end
   end
 end

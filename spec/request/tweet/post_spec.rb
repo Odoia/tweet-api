@@ -12,7 +12,7 @@ describe '::Api::V1::TweetController', type: :request do
   context 'When send a tweet' do
     context 'When use a POST url with valid params'
     let(:execute_actions) do
-      post '/api/v1/tweet', params: {"userId": 1, "tweet": "first tweet"}, headers: { 'ACCEPT' => 'application/json' }
+      post '/api/v1/tweet', params: { "tweet": {"userId": 1, "tweet": "first tweet"} }, headers: { 'ACCEPT' => 'application/json' }
     end
 
     it 'must be return status 201' do
