@@ -40,6 +40,36 @@ describe '::Api::V1::TweetController', type: :request do
           expect(JSON.parse(response.body)['status']).to eq 400
         end
       end
+
+      context 'When use a body without userId' do
+        let(:execute_actions) do
+          post '/api/v1/tweet', params: {"tweet": {"message": "first tweet"}}, headers: { 'ACCEPT' => 'application/json' }
+        end
+
+        it 'must be return status 400' do
+          expect(JSON.parse(response.body)['status']).to eq 400
+        end
+      end
+
+      context 'When use a body without message' do
+        let(:execute_actions) do
+          post '/api/v1/tweet', params: {"tweet": { "userId": 1 }}, headers: { 'ACCEPT' => 'application/json' }
+        end
+
+        it 'must be return status 400' do
+          expect(JSON.parse(response.body)['status']).to eq 400
+        end
+      end
+
+      context 'When try send a empty body' do
+        let(:execute_actions) do
+          post '/api/v1/tweet', params: {}, headers: { 'ACCEPT' => 'application/json' }
+        end
+
+        it 'must be return status 400' do
+          expect(JSON.parse(response.body)['status']).to eq 400
+        end
+      end
     end
   end
 end

@@ -5,7 +5,11 @@ module Api
 
       def create
         result = create_tweet
-        render status: 201, json: { data: result, status: 201 }
+        unless result.id.nil?
+          render status: 201, json: { data: result, status: 201 }
+        else
+          error_handler
+        end
       end
 
       private
