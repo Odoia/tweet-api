@@ -13,7 +13,7 @@ describe '::Api::V1::UserController', type: :request do
     context 'Whe use a valid params' do
       context 'When use a POST url' do
         let(:execute_actions) do
-          post '/api/v1/user', params: { "user": {"message": "user name"} }, headers: { 'ACCEPT' => 'application/json' }
+          post '/api/v1/user', params: { "user": {"name": "user name"} }, headers: { 'ACCEPT' => 'application/json' }
         end
 
         it 'must be return status 201' do
