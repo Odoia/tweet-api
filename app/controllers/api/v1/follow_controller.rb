@@ -17,6 +17,8 @@ module Api
       def follow_params
         return error_handler if params[:follow].blank?
 
+        return error_handler(status: 404, error: 'Not Found') if params['follow']['userId'] == params['follow']['followUserId']
+
         params.require(:follow).permit(
           :userId, :followUserId
         )
