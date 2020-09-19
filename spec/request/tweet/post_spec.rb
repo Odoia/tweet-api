@@ -16,7 +16,7 @@ describe '::Api::V1::TweetController', type: :request do
       end
 
       it 'must be return status 201' do
-        expect(JSON.parse(response.body).status).to eq 201
+        expect(JSON.parse(response.body)['status']).to eq 201
       end
 
   end
