@@ -4,19 +4,19 @@ module Api
 
       def create
         result = create_tweet
-        render status: 201, json: { data: result ,status: 201 }
+        render status: 201, json: { data: result, status: 201 }
       end
 
       private
 
       def tweet_params
         params.require(:tweet).permit(
-          :userId, :tweet
+          :message, :userId
         )
       end
 
       def create_tweet
-        ::Services::Tweet::Create.new(user_id: tweet_params['userId'], message: tweet_params['tweet']).call
+        ::Services::Tweet::Create.new(user_id: tweet_params['userId'], message: tweet_params['message']).call
       end
     end
   end

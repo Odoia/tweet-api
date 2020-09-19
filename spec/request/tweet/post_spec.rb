@@ -10,21 +10,31 @@ describe '::Api::V1::TweetController', type: :request do
   let(:execute_actions) {}
 
   context 'When send a tweet' do
-    context 'When use a POST url with valid params'
-    let(:execute_actions) do
-      post '/api/v1/tweet', params: { "tweet": {"userId": 1, "tweet": "first tweet"} }, headers: { 'ACCEPT' => 'application/json' }
+    context 'Whe use a valid params' do
+      context 'When use a POST url' do
+        let(:execute_actions) do
+          post '/api/v1/tweet', params: { "tweet": {"userId": 1, "message": "first tweet"} }, headers: { 'ACCEPT' => 'application/json' }
+        end
+
+        it 'must be return status 201' do
+          expect(JSON.parse(response.body)['status']).to eq 201
+        end
+
+        it 'must be return user id 1' do
+          expect(JSON.parse(response.body)['data']['user_id']).to eq 1
+        end
+
+        it 'must be return message first tweet' do
+          expect(JSON.parse(response.body)['data']['message']).to eq 'first tweet'
+        end
+      end
     end
 
-    it 'must be return status 201' do
-      expect(JSON.parse(response.body)['status']).to eq 201
-    end
+    context 'When use a invalid params' do
+      let(:execute_actions) do
+        post '/api/v1/tweet', params: {"userId": 1, "message": "first tweet"}, headers: { 'ACCEPT' => 'application/json' }
+      end
 
-    it 'must be return user id 1' do
-      expect(JSON.parse(response.body)['data']['user_id']).to eq 1
-    end
-
-    it 'must be return message first tweet' do
-      expect(JSON.parse(response.body)['data']['message']).to eq 'first tweet'
     end
   end
 end
