@@ -3,14 +3,15 @@ module Api
     class TweetController < ApplicationController
 
       def create
-        result = ::Tweet.new(
-          user_id: params['userId'], message: params['tweet']
-        )
-        result.save
+        result = create_tweet
         render status: 201, json: { data: result ,status: 201 }
       end
 
       private
+
+      def create_tweet
+        ::Services::Tweet::Create.new(user_id: params['userId'], message: params['tweet']).call
+      end
 
     end
   end

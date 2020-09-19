@@ -15,7 +15,7 @@ module Services
 
       attr_reader :message, :user_id
 
-      def actor_create
+      def tweet_create
         result = ::Tweet.new(params_to_save)
         result.save
         result
