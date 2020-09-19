@@ -1,7 +1,7 @@
 module Api
   module V1
     class TweetController < ApplicationController
-      
+
       def create
         result = ::Tweet.new(
           user_id: params['userId'], message: params['tweet']
@@ -9,7 +9,9 @@ module Api
         result.save
         render status: 201, json: { data: result ,status: 201 }
       end
-      
+
+      private
+
     end
   end
 end
