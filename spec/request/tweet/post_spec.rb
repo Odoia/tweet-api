@@ -31,10 +31,15 @@ describe '::Api::V1::TweetController', type: :request do
     end
 
     context 'When use a invalid params' do
-      let(:execute_actions) do
-        post '/api/v1/tweet', params: {"userId": 1, "message": "first tweet"}, headers: { 'ACCEPT' => 'application/json' }
-      end
+      context 'When use a POST url' do
+        let(:execute_actions) do
+          post '/api/v1/tweet', params: {"userId": 1, "message": "first tweet"}, headers: { 'ACCEPT' => 'application/json' }
+        end
 
+        it 'must be return status 400' do
+          expect(JSON.parse(response.body)['status']).to eq 400
+        end
+      end
     end
   end
 end
