@@ -6,7 +6,7 @@ module ErrorSerializer
       return not_found if status == 404
     end
 
-    return serialize(errors)
+    return serialize(errors, status)
   end
 
   private
@@ -19,12 +19,12 @@ module ErrorSerializer
     {status: 404, error: 'Not Found'}
   end
 
-  def self.serialize(errors)
+  def self.serialize(errors, status)
 
     json = {}
     new_hash = errors.to_hash.map do |k, v|
       v.map do |msg|
-        { id: k, title: msg }
+        { id: k, title: msg, status: status }
       end
     end.flatten
     json[:errors] = new_hash

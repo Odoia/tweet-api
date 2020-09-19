@@ -47,7 +47,15 @@ describe '::Api::V1::FollowController', type: :request do
         end
 
         it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
+        end
+
+        it 'must be return id -> user_id' do
+          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'user_id'
+        end
+
+        it "must be return title -> can't be blank" do
+          expect(JSON.parse(response.body)['errors'].first['title']).to eq "can't be blank"
         end
       end
 
@@ -57,7 +65,15 @@ describe '::Api::V1::FollowController', type: :request do
         end
 
         it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
+        end
+
+        it 'must be return id -> follow_user_id' do
+          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'follow_user_id'
+        end
+
+        it "must be return title -> can't be blank" do
+          expect(JSON.parse(response.body)['errors'].first['title']).to eq "can't be blank"
         end
       end
 
