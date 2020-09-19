@@ -1,6 +1,7 @@
 module Api
   module V1
     class FollowController < ApplicationController
+      include ErrorSerializer
       before_action :follow_params, only: [:create]
 
       def create
@@ -17,15 +18,15 @@ module Api
       def follow_params
         return error_handler if params[:follow].blank?
 
-        return error_handler(status: 404, error: 'Not Found') if params['follow']['userId'] == params['follow']['followUserId']
+        return error_handler(status: 404) if params['follow']['userId'] == params['follow']['followUserId']
 
         params.require(:follow).permit(
           :userId, :followUserId
         )
       end
 
-      def error_handler(error: 'Bad Request', status: 400)
-        render nothing: true, status: status, json: { status: status, data: error }
+      def error_handler(errors: nil, status: 400)
+        render nothing: true, status: status, json: ErrorSerializer.call(errors: errors, status: status)
       end
 
       def create_follow
