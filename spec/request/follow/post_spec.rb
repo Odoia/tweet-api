@@ -46,7 +46,7 @@ describe '::Api::V1::FollowController', type: :request do
           post '/api/v1/follow', params: {"follow": {"followUserId": 2}}, headers: { 'ACCEPT' => 'application/json' }
         end
 
-        it 'must be return status 400' do
+        it 'must be return status 404' do
           expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
         end
 
@@ -64,7 +64,7 @@ describe '::Api::V1::FollowController', type: :request do
           post '/api/v1/follow', params: {"follow": { "userId": 1 }}, headers: { 'ACCEPT' => 'application/json' }
         end
 
-        it 'must be return status 400' do
+        it 'must be return status 404' do
           expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
         end
 

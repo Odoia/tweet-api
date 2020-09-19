@@ -46,9 +46,20 @@ describe '::Api::V1::TweetController', type: :request do
           post '/api/v1/tweet', params: {"tweet": {"message": "first tweet"}}, headers: { 'ACCEPT' => 'application/json' }
         end
 
-        it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+        it 'must be return status 404' do
+          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
         end
+
+        it 'must be return id -> user_id' do
+          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'user_id'
+        end
+
+        it "must be return title -> can't be blank" do
+          expect(JSON.parse(response.body)['errors'].first['title']).to eq "can't be blank"
+        end
+        # it 'must be return status 400' do
+        #   expect(JSON.parse(response.body)['status']).to eq 400
+        # end
       end
 
       context 'When use a body without message' do
@@ -56,9 +67,20 @@ describe '::Api::V1::TweetController', type: :request do
           post '/api/v1/tweet', params: {"tweet": { "userId": 1 }}, headers: { 'ACCEPT' => 'application/json' }
         end
 
-        it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+        it 'must be return status 404' do
+          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
         end
+
+        it 'must be return id -> message' do
+          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'message'
+        end
+
+        it "must be return title -> can't be blank" do
+          expect(JSON.parse(response.body)['errors'].first['title']).to eq "can't be blank"
+        end
+        # it 'must be return status 400' do
+        #   expect(JSON.parse(response.body)['status']).to eq 400
+        # end
       end
 
       context 'When try send a empty body' do
