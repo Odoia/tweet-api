@@ -1,6 +1,5 @@
 #Tweet Api Project
 
-
 This API simulates an app like Twitter with four endpoints that allows to create and follow an user, publish a tweet and get a tweet feed with user and followers tweets.
 It uses Ruby 2.7.1, Rails 6 and it is needed Postgres 12.
 
@@ -52,4 +51,3 @@ Clone this project and run those commands in sequence:
 # TODO list (improvements for the future):
 
 * Add a autentication user.
-
