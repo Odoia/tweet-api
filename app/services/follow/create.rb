@@ -17,7 +17,7 @@ module Services
       def follow_create
         result = ::Follow.new(params_to_save)
         result.save
-        result
+        follow_presenter(result)
       end
 
       def params_to_save
@@ -25,6 +25,10 @@ module Services
           user_id: user_id,
           follow_user_id: follow_user_id
         }
+      end
+
+      def follow_presenter(result)
+        ::Presenter::Follow.new(result)
       end
     end
   end

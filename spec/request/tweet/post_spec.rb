@@ -4,8 +4,11 @@ describe '::Api::V1::TweetController', type: :request do
 
   before do
     I18n.default_locale = :en
+    user_1
     execute_actions
   end
+
+  let(:user_1) { User.create(id: 1, name: '1user 1') }
 
   let(:execute_actions) {}
 
@@ -21,7 +24,7 @@ describe '::Api::V1::TweetController', type: :request do
         end
 
         it 'must be return user id 1' do
-          expect(JSON.parse(response.body)['data']['user_id']).to eq 1
+          expect(JSON.parse(response.body)['data']['userId']).to eq 1
         end
 
         it 'must be return message first tweet' do
@@ -51,11 +54,11 @@ describe '::Api::V1::TweetController', type: :request do
         end
 
         it 'must be return id -> user_id' do
-          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'user_id'
+          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'user'
         end
 
-        it "must be return title -> can't be blank" do
-          expect(JSON.parse(response.body)['errors'].first['title']).to eq "can't be blank"
+        it 'must be return title -> must exist' do
+          expect(JSON.parse(response.body)['errors'].first['title']).to eq 'must exist'
         end
       end
 
