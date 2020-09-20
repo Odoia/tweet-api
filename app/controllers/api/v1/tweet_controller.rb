@@ -13,7 +13,7 @@ module Api
       end
 
       def show
-        result = feed.sort_by { |t| t.date }
+        result = feed&.sort_by { |t| t.date }
         if result
           render status: 200, json: { data: result, status: 200 }
         else
@@ -38,7 +38,7 @@ module Api
       end
 
       def feed 
-        feed ||= User.find_by(id: params['id']).feed
+        feed ||= User.find_by(id: params['id'])&.feed
       end
 
       def create_tweet

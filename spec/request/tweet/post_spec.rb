@@ -11,6 +11,7 @@ describe '::Api::V1::TweetController', type: :request do
   let(:user_1) { FactoryBot.create(:user, id: 1) }
 
   let(:execute_actions) {}
+  let(:body) { JSON.parse response.body }
 
   context 'When send a tweet' do
     context 'Whe use a valid params' do
@@ -20,15 +21,15 @@ describe '::Api::V1::TweetController', type: :request do
         end
 
         it 'must be return status 201' do
-          expect(JSON.parse(response.body)['status']).to eq 201
+          expect(body['status']).to eq 201
         end
 
         it 'must be return user id 1' do
-          expect(JSON.parse(response.body)['data']['userId']).to eq 1
+          expect(body['data']['userId']).to eq 1
         end
 
         it 'must be return message first tweet' do
-          expect(JSON.parse(response.body)['data']['message']).to eq 'first tweet'
+          expect(body['data']['message']).to eq 'first tweet'
         end
       end
     end
@@ -40,7 +41,7 @@ describe '::Api::V1::TweetController', type: :request do
         end
 
         it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+          expect(body['status']).to eq 400
         end
       end
 
@@ -50,15 +51,15 @@ describe '::Api::V1::TweetController', type: :request do
         end
 
         it 'must be return status 404' do
-          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
+          expect(body['errors'].first['status']).to eq 404
         end
 
         it 'must be return id -> user_id' do
-          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'user'
+          expect(body['errors'].first['id']).to eq 'user'
         end
 
         it 'must be return title -> must exist' do
-          expect(JSON.parse(response.body)['errors'].first['title']).to eq 'must exist'
+          expect(body['errors'].first['title']).to eq 'must exist'
         end
       end
 
@@ -68,15 +69,15 @@ describe '::Api::V1::TweetController', type: :request do
         end
 
         it 'must be return status 404' do
-          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
+          expect(body['errors'].first['status']).to eq 404
         end
 
         it 'must be return id -> message' do
-          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'message'
+          expect(body['errors'].first['id']).to eq 'message'
         end
 
         it "must be return title -> can't be blank" do
-          expect(JSON.parse(response.body)['errors'].first['title']).to eq "can't be blank"
+          expect(body['errors'].first['title']).to eq "can't be blank"
         end
       end
 
@@ -86,7 +87,7 @@ describe '::Api::V1::TweetController', type: :request do
         end
 
         it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+          expect(body['status']).to eq 400
         end
       end
     end
