@@ -5,10 +5,10 @@ module Api
 
       def create
         result = create_user
-        unless result.id.nil?
-          render status: 201, json: { data: user_presenter(result), status: 201 }
-        else
+        if result.id.nil?
           error_handler(errors: result.errors, status:404 )
+        else
+          render status: 201, json: { data: user_presenter(result), status: 201 }
         end
       end
 

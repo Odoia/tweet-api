@@ -9,8 +9,8 @@ describe '::Api::V1::FollowController', type: :request do
     execute_actions
   end
 
-  let(:user_1) { User.create(id: 1, name: '1user 1') }
-  let(:user_2) { User.create(id: 2, name: '2user 2') }
+  let(:user_1) { FactoryBot.create(:user, id: 1) }
+  let(:user_2) { FactoryBot.create(:user, id: 2) }
 
   let(:execute_actions) {}
 

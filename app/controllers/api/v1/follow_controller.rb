@@ -6,10 +6,10 @@ module Api
 
       def create
         result = create_follow
-        unless result.id.nil?
-          render status: 201, json: { data: follow_presenter(result), status: 201 }
-        else
+        if result.id.nil?
           error_handler(errors: result.errors, status:404 )
+        else
+          render status: 201, json: { data: follow_presenter(result), status: 201 }
         end
       end
 
@@ -17,12 +17,6 @@ module Api
 
       def follow_params
         return error_handler if params[:follow].blank?
-
-        # return error_handler(status: 404) if params['follow']['userId'] == params['follow']['followUserId']
-
-        # require 'pry'; binding.pry
-        # return error_handler(status: 404) unless params['follow'].permitted?
-        # return error_handler(status: 404) if User.find_by(id: params['follow']['followUserId']).blank?
 
         params.require(:follow).permit(
           :userId, :followUserId

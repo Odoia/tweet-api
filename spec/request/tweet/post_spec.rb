@@ -8,7 +8,7 @@ describe '::Api::V1::TweetController', type: :request do
     execute_actions
   end
 
-  let(:user_1) { User.create(id: 1, name: '1user 1') }
+  let(:user_1) { FactoryBot.create(:user, id: 1) }
 
   let(:execute_actions) {}
 
