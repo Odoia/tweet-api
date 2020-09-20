@@ -70,7 +70,7 @@ describe '::Api::V1::FollowController', type: :request do
         end
 
         it 'must be return status 404' do
-          expect(JSON.parse(response.body)['status']).to eq 404
+          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
         end
 
         it 'must be return id -> follow_user_id' do
@@ -98,8 +98,11 @@ describe '::Api::V1::FollowController', type: :request do
         end
 
         it 'must be return status 404' do
-          require 'pry'; binding.pry
-          expect(JSON.parse(response.body)['status']).to eq 404
+          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
+        end
+
+        it 'must be show base error' do
+          expect(JSON.parse(response.body)['errors'].first['title']).to eq 'user id needs to be different from follow user id'
         end
       end
     end
