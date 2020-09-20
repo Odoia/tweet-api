@@ -5,14 +5,25 @@ module Api
 
       def create
         result = create_tweet
-        unless result.id.nil?
-          render status: 201, json: { data: result, status: 201 }
-        else
+        if result.id.nil?
           error_handler(errors: result.errors, status:404 )
+        else
+          render status: 201, json: { data: tweet_presenter(result), status: 201 }
+        end
+      end
+
+      def show
+        result = feed&.sort_by { |t| t.date }
+        if result
+          render status: 200, json: { data: result, status: 200 }
+        else
+          error_handler
         end
       end
 
       private
+
+      attr_reader :feed
 
       def tweet_params
         return error_handler if params[:tweet].blank?
@@ -26,8 +37,16 @@ module Api
         render nothing: true, status: status, json: ErrorSerializer.call(errors: errors, status: status)
       end
 
+      def feed 
+        feed ||= User.find_by(id: params['id'])&.feed
+      end
+
       def create_tweet
         ::Services::Tweet::Create.new(user_id: tweet_params['userId'], message: tweet_params['message']).call
+      end
+
+      def tweet_presenter(result)
+        ::Presenter::Tweet.new(result)
       end
     end
   end

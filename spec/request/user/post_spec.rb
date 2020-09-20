@@ -8,6 +8,7 @@ describe '::Api::V1::UserController', type: :request do
   end
 
   let(:execute_actions) {}
+  let(:body) { JSON.parse response.body }
 
   context 'When create a user' do
     context 'Whe use a valid params' do
@@ -17,11 +18,11 @@ describe '::Api::V1::UserController', type: :request do
         end
 
         it 'must be return status 201' do
-          expect(JSON.parse(response.body)['status']).to eq 201
+          expect(body['status']).to eq 201
         end
 
         it 'must be return user name' do
-          expect(JSON.parse(response.body)['data']['name']).to eq 'user name'
+          expect(body['data']['name']).to eq 'user name'
         end
       end
     end
@@ -33,7 +34,7 @@ describe '::Api::V1::UserController', type: :request do
         end
 
         it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+          expect(body['status']).to eq 400
         end
       end
 
@@ -43,7 +44,7 @@ describe '::Api::V1::UserController', type: :request do
         end
 
         it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+          expect(body['status']).to eq 400
         end
       end
 
@@ -53,7 +54,7 @@ describe '::Api::V1::UserController', type: :request do
         end
 
         it 'must be return status 400' do
-          expect(JSON.parse(response.body)['status']).to eq 400
+          expect(body['status']).to eq 400
         end
       end
     end

@@ -12,11 +12,11 @@ module ErrorSerializer
   private
 
   def self.bad_request
-    {status: 400, error: 'Bad Request'}
+    {status: 400, error: I18n.t('bad_request')}
   end
 
   def self.not_found
-    {status: 404, error: 'Not Found'}
+    {status: 404, error: I18n.t('not_found')}
   end
 
   def self.serialize(errors, status)
