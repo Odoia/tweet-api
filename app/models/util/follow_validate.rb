@@ -3,11 +3,11 @@ module Util
 
     def validate(record)
       if User.find_by(id: record.follow_user_id).blank?
-        record.errors[:base] << 'follow user id need to be a valid id'
+        record.errors[:base] << I18n.t('valid_id')
       end
 
       unless record.user_id != record.follow_user_id
-        record.errors[:base] << 'user id needs to be different from follow user id'
+        record.errors[:base] << I18n.t('different_id')
       end
     end
   end
