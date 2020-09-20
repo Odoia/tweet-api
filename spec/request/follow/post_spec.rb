@@ -4,8 +4,13 @@ describe '::Api::V1::FollowController', type: :request do
 
   before do
     I18n.default_locale = :en
+    user_1
+    user_2
     execute_actions
   end
+
+  let(:user_1) { User.create(id: 1, name: '1user 1') }
+  let(:user_2) { User.create(id: 2, name: '2user 2') }
 
   let(:execute_actions) {}
 
@@ -21,11 +26,11 @@ describe '::Api::V1::FollowController', type: :request do
         end
 
         it 'must be return user id' do
-          expect(JSON.parse(response.body)['data']['user_id']).to eq 1
+          expect(JSON.parse(response.body)['data']['userId']).to eq 1
         end
 
         it 'must be return follow user id' do
-          expect(JSON.parse(response.body)['data']['follow_user_id']).to eq 2
+          expect(JSON.parse(response.body)['data']['followUserId']).to eq 2
         end
       end
     end
@@ -50,12 +55,12 @@ describe '::Api::V1::FollowController', type: :request do
           expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
         end
 
-        it 'must be return id -> user_id' do
-          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'user_id'
+        it 'must be return id -> user' do
+          expect(JSON.parse(response.body)['errors'].first['id']).to eq 'user'
         end
 
-        it "must be return title -> can't be blank" do
-          expect(JSON.parse(response.body)['errors'].first['title']).to eq "can't be blank"
+        it "must be return title -> must exist" do
+          expect(JSON.parse(response.body)['errors'].first['title']).to eq 'must exist'
         end
       end
 
@@ -65,7 +70,7 @@ describe '::Api::V1::FollowController', type: :request do
         end
 
         it 'must be return status 404' do
-          expect(JSON.parse(response.body)['errors'].first['status']).to eq 404
+          expect(JSON.parse(response.body)['status']).to eq 404
         end
 
         it 'must be return id -> follow_user_id' do
@@ -93,6 +98,7 @@ describe '::Api::V1::FollowController', type: :request do
         end
 
         it 'must be return status 404' do
+          require 'pry'; binding.pry
           expect(JSON.parse(response.body)['status']).to eq 404
         end
       end
