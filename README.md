@@ -1,24 +1,39 @@
-# README
+#Tweet Api Project
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+This API simulates an app like Twitter with four endpoints that allows to create and follow an user, publish a tweet and get a tweet feed with user and followers tweets.
+It uses Ruby 2.7.1, Rails 6 and it is needed Postgres 12.
 
-* Ruby version
+# What do you need to run the project
 
-* System dependencies
+Clone this project and run those commands in sequence:
 
-* Configuration
+* bundle install
+* rails db:create
+* rails db:migrate
+* rails s
 
-* Database creation
+# API documentation
 
-* Database initialization
+[API mind map](http://www.xmind.net/m/sPAuGg)
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+# Endpoints
+## Create an user
+* You need to access 'POST: api/v1/user' route passing user information ({"user": {name: "name here"}}). 
 
-* Deployment instructions
+## Follow an user
+* You need to access 'POST: api/v1/follow' route passing follow relationship ({"follow": {  "userId": 1 , "followUserId": 2  } }). 
+* For this endpoint success, you need to pass two valid and different ids.
 
-* ...
+## Publish a tweet
+* You need to access 'POST: api/v1/tweet' route passing user id and tweet message ({"tweet":{"userId": 1 "message": "tweet here" }}). 
+
+## Tweet feed
+* You need to access 'GET: api/v1/tweet/{userId}' route passing the id of the current user.
+* This endpoint brings a list of tweet message from both the current user and his followers.
+
+# TODO list (improvements for the future):
+
+* Add a autentication user.
+
