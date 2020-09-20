@@ -8,7 +8,7 @@ module Api
         unless result.id.nil?
           render status: 201, json: { data: result, status: 201 }
         else
-          error_handler
+          error_handler(errors: result.errors, status:404 )
         end
       end
 
@@ -22,8 +22,8 @@ module Api
         )
       end
 
-      def error_handler(error: 'Bad Request', status: 400)
-        render nothing: true, status: status, json: { status: status, data: error }
+      def error_handler(errors: nil, status: 400)
+        render nothing: true, status: status, json: ErrorSerializer.call(errors: errors, status: status)
       end
 
       def create_tweet
