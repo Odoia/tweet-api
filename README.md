@@ -33,6 +33,22 @@ Clone this project and run those commands in sequence:
 * You need to access 'GET: api/v1/tweet/{userId}' route passing the id of the current user.
 * This endpoint brings a list of tweet message from both the current user and his followers.
 
+
+# Requests examples and given returns
+1. When user passes correct parameters when creating an user:
+![](https://github.com/Odoia/tweet-api/blob/development/project_images/user%20201.png)
+2. When user passes incorrect parameters when creating an user:
+![](https://github.com/Odoia/tweet-api/blob/development/project_images/user%20null.png)
+3. When user passes correct parameters when following another user:
+![](https://github.com/Odoia/tweet-api/blob/development/project_images/follow%20201.png)
+4. When user passes identical ids when following another user:
+![](https://github.com/Odoia/tweet-api/blob/development/project_images/follow%20id%20identical.png)
+5. When user passes invalid ids when following another user:
+![](https://github.com/Odoia/tweet-api/blob/development/project_images/follow%20404%20valid%20id.png)
+6. When user passes correct parameters when creating a tweet:
+![](https://github.com/Odoia/tweet-api/blob/development/project_images/tweet%20201.png)
+7. When user passes incorrect parameters when creating a tweet:
+![](https://github.com/Odoia/tweet-api/blob/development/project_images/tweet%20error%20user%20dont%20exist.png)
 # TODO list (improvements for the future):
 
 * Add a autentication user.
