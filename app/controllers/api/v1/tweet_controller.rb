@@ -12,6 +12,11 @@ module Api
         end
       end
 
+      def show
+        require 'pry'; binding.pry
+        
+      end
+
       private
 
       def tweet_params
