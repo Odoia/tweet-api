@@ -6,7 +6,11 @@ class User < ApplicationRecord
 
 
   def feed
-    find_followers_and_message.flatten
+    followers = find_followers_and_message
+    result = followers.push(make_current_user_feed).flatten
+    result.map do |u|
+      ::Presenter::Feed.new(u)
+    end
   end
 
   private
@@ -20,7 +24,13 @@ class User < ApplicationRecord
 
   def make_user_message_and_date_by_user(user)
     user.tweet.map do |m|
-      { user: m.user.name, messages: m.message, date: m.created_at }
+      { name: m.user.name, message: m.message, date: m.created_at }
+    end
+  end
+
+  def make_current_user_feed
+    self.tweet.map do |t|
+      { name: self.name, message: t.message, date: t.created_at }
     end
   end
 end

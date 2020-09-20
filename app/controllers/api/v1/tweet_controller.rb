@@ -13,11 +13,17 @@ module Api
       end
 
       def show
-        require 'pry'; binding.pry
-        
+        result = feed.sort_by { |t| t.date }
+        if result
+          render status: 200, json: { data: result, status: 200 }
+        else
+          error_handler
+        end
       end
 
       private
+
+      attr_reader :feed
 
       def tweet_params
         return error_handler if params[:tweet].blank?
@@ -29,6 +35,10 @@ module Api
 
       def error_handler(errors: nil, status: 400)
         render nothing: true, status: status, json: ErrorSerializer.call(errors: errors, status: status)
+      end
+
+      def feed 
+        feed ||= User.find_by(id: params['id']).feed
       end
 
       def create_tweet
