@@ -42,7 +42,7 @@ module Api
       end
 
       def create_tweet
-        ::Services::Tweet::Create.new(user_id: tweet_params['userId'], message: tweet_params['message']).call
+        TweetServices::Create.new(user_id: tweet_params['userId'], message: tweet_params['message']).call
       end
 
       def tweet_presenter(result)

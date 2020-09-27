@@ -28,7 +28,7 @@ module Api
       end
 
       def create_follow
-        ::Services::Follow::Create.new(user_id: follow_params['userId'], follow_id: follow_params['followUserId']).call
+        ::FollowServices::Create.new(user_id: follow_params['userId'], follow_id: follow_params['followUserId']).call
       end
 
       def follow_presenter(result)

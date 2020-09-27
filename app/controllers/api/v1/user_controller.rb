@@ -26,7 +26,7 @@ module Api
       end
 
       def create_user
-        ::Services::User::Create.new(name: user_params['name']).call
+        ::UserServices::Create.new(name: user_params['name']).call
       end
 
       def user_presenter(result)
