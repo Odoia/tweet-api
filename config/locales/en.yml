@@ -1,6 +1,5 @@
 en:
   not_found: 'Not Found'
   bad_request: 'Bad Request'
-  not_recommended: "Not recommended for children under %{age}"
   valid_id: 'follow user id need to be a valid id'
   different_id: 'user id needs to be different from follow user id'

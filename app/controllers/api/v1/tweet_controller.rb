@@ -38,7 +38,10 @@ module Api
       end
 
       def feed 
-        feed ||= User.find_by(id: params['id'])&.feed
+        result = User.find_by(id: params['id'])&.feed
+        result&.map do |u|
+          ::Presenter::Feed.new(u)
+        end
       end
 
       def create_tweet

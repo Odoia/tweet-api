@@ -7,10 +7,7 @@ class User < ApplicationRecord
 
   def feed
     followers = find_followers_and_message
-    result = followers.push(make_current_user_feed).flatten
-    result.map do |u|
-      ::Presenter::Feed.new(u)
-    end
+    followers.push(make_current_user_feed).flatten
   end
 
   private

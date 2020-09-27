@@ -12,6 +12,12 @@ Clone this project and run those commands in sequence:
 * rails db:migrate
 * rails s
 
+# What do you need to run all tests
+
+use on root project path:
+
+* rspec
+
 # API documentation
 
 [API mind map](http://www.xmind.net/m/sPAuGg)
