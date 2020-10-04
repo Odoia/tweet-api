@@ -14,16 +14,11 @@ module TweetServices
     attr_reader :message, :user_id
 
     def tweet_create
-      result = ::Tweet.new(params_to_save)
-      result.save
-      result
-    end
-
-    def params_to_save
-      {
-        message: message,
-        user_id: user_id
-      }
+      ::Tweet.new.tap do |t|
+        t.message = message
+        t.user_id = user_id
+        t.save
+      end
     end
   end
 end

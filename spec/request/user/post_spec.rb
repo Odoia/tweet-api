@@ -4,18 +4,15 @@ describe '::Api::V1::UserController', type: :request do
 
   before do
     I18n.default_locale = :en
-    execute_actions
+    post '/api/v1/user', params: params, headers: { 'ACCEPT' => 'application/json' }
   end
 
-  let(:execute_actions) {}
   let(:body) { JSON.parse response.body }
 
   context 'When create a user' do
     context 'Whe use a valid params' do
       context 'When use a POST url' do
-        let(:execute_actions) do
-          post '/api/v1/user', params: { "user": {"name": "user name"} }, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) { { "user": { "name": "user name" } } }
 
         it 'must be return status 201' do
           expect(body['status']).to eq 201
@@ -29,9 +26,7 @@ describe '::Api::V1::UserController', type: :request do
 
     context 'When use a invalid params' do
       context 'When use a body without user' do
-        let(:execute_actions) do
-          post '/api/v1/user', params: {"name": "user name"}, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) { { "name": "user name" } }
 
         it 'must be return status 400' do
           expect(body['status']).to eq 400
@@ -39,9 +34,7 @@ describe '::Api::V1::UserController', type: :request do
       end
 
       context 'When use a body without name' do
-        let(:execute_actions) do
-          post '/api/v1/user', params: {"user": {}}, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) { { "user": {} } }
 
         it 'must be return status 400' do
           expect(body['status']).to eq 400
@@ -49,9 +42,7 @@ describe '::Api::V1::UserController', type: :request do
       end
 
       context 'When try send a empty body' do
-        let(:execute_actions) do
-          post '/api/v1/user', params: {}, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) {}
 
         it 'must be return status 400' do
           expect(body['status']).to eq 400

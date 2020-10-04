@@ -5,6 +5,7 @@ describe '::Api::V1::TweetController', type: :request do
   before do
     I18n.default_locale = :en
     execute_actions
+    get '/api/v1/tweet/1', params: {}, headers: { 'ACCEPT' => 'application/json' }
   end
 
   let(:user_with_follor1) { FactoryBot.create(:follow, user_id: user_1.id, follow_user_id: user_2.id) }
@@ -49,8 +50,6 @@ describe '::Api::V1::TweetController', type: :request do
           user_with_follor4
           user_with_follor5
           user_with_follor6
-
-          get '/api/v1/tweet/1', params: {}, headers: { 'ACCEPT' => 'application/json' }
         end
 
         it 'must be return status 200' do
@@ -95,10 +94,6 @@ describe '::Api::V1::TweetController', type: :request do
     end
     context 'Whe use a valid params' do
       context 'When use a Get url' do
-        let(:execute_actions) do
-          get '/api/v1/tweet/1', params: {}, headers: { 'ACCEPT' => 'application/json' }
-        end
-
         it 'must be return status 200' do
           expect(body['status']).to eq 400
         end

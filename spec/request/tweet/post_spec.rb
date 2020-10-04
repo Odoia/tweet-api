@@ -5,20 +5,17 @@ describe '::Api::V1::TweetController', type: :request do
   before do
     I18n.default_locale = :en
     user_1
-    execute_actions
+    post '/api/v1/tweet', params: params, headers: { 'ACCEPT' => 'application/json' }
   end
 
   let(:user_1) { FactoryBot.create(:user, id: 1) }
 
-  let(:execute_actions) {}
   let(:body) { JSON.parse response.body }
 
   context 'When send a tweet' do
     context 'Whe use a valid params' do
       context 'When use a POST url' do
-        let(:execute_actions) do
-          post '/api/v1/tweet', params: { "tweet": {"userId": 1, "message": "first tweet"} }, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) { { "tweet": { "userId": 1, "message": "first tweet" } } }
 
         it 'must be return status 201' do
           expect(body['status']).to eq 201
@@ -36,9 +33,7 @@ describe '::Api::V1::TweetController', type: :request do
 
     context 'When use a invalid params' do
       context 'When use a body without tweet' do
-        let(:execute_actions) do
-          post '/api/v1/tweet', params: {"userId": 1, "message": "first tweet"}, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) { { "userId": 1, "message": "first tweet" } }
 
         it 'must be return status 400' do
           expect(body['status']).to eq 400
@@ -46,9 +41,7 @@ describe '::Api::V1::TweetController', type: :request do
       end
 
       context 'When use a body without userId' do
-        let(:execute_actions) do
-          post '/api/v1/tweet', params: {"tweet": {"message": "first tweet"}}, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) { { "tweet": { "message": "first tweet" } } }
 
         it 'must be return status 404' do
           expect(body['errors'].first['status']).to eq 404
@@ -64,9 +57,7 @@ describe '::Api::V1::TweetController', type: :request do
       end
 
       context 'When use a body without message' do
-        let(:execute_actions) do
-          post '/api/v1/tweet', params: {"tweet": { "userId": 1 }}, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) { { "tweet": {"userId": 1 } } }
 
         it 'must be return status 404' do
           expect(body['errors'].first['status']).to eq 404
@@ -82,9 +73,7 @@ describe '::Api::V1::TweetController', type: :request do
       end
 
       context 'When try send a empty body' do
-        let(:execute_actions) do
-          post '/api/v1/tweet', params: {}, headers: { 'ACCEPT' => 'application/json' }
-        end
+        let(:params) {}
 
         it 'must be return status 400' do
           expect(body['status']).to eq 400

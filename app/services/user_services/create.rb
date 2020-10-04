@@ -13,15 +13,10 @@ module UserServices
     attr_reader :name
 
     def tweet_create
-      result = ::User.new(params_to_save)
-      result.save
-      result
-    end
-
-    def params_to_save
-      {
-        name: name
-      }
+      ::User.new.tap do |u|
+        u.name = name
+        u.save
+      end
     end
   end
 end
